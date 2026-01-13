@@ -1,0 +1,26 @@
+# Sentinel-RB Configuration
+
+# System Thresholds (Percentage)
+thresholds:
+  disk_usage: 90
+  memory_usage: 85
+  cpu_load: 2.0 # Load average (relative to cores usually, but set a raw number here)
+
+# Notification Settings
+notifications:
+  enable_email: true
+  enable_telegram: false
+
+# Email Settings (SMTP)
+email:
+  server: "smtp.gmail.com"
+  port: 587
+  user_name: "your_email@gmail.com"
+  password: "your_app_password" # Use App Password for Gmail
+  from: "server-monitor@bot.com"
+  to: "admin@domain.com"
+
+# Telegram Settings
+telegram:
+  bot_token: "YOUR_BOT_TOKEN_HERE"
+  chat_id: "YOUR_CHAT_ID_HERE"
