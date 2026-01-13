@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+require 'yaml'
+require_relative '../lib/system_check'
+require_relative '../lib/notifier'
+
+# Load Configuration
+config_path = File.join(File.dirname(__FILE__), '../config/config.yml')
+
+unless File.exist?(config_path)
+  puts "❌ Config file not found! Please copy config/config.example.yml to config/config.yml"
+  exit 1
+end
+
+config = YAML.load_file(config_path)
+
+# Run Checks
+puts "🔍 Sentinel-RB is scanning system..."
+checker = SystemCheck.new(config)
+alerts = checker.check_all
+
+if alerts.empty?
+  puts "✅ System is healthy."
+else
+  puts "⚠️ Issues found! Sending alerts..."
+  notifier = Notifier.new(config)
+  notifier.send_alert(alerts)
+end
